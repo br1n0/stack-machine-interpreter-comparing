@@ -1,0 +1,13 @@
+vm.pc = 0;
+vm.stack[0]= +4;
+vm.stack[1]= +1;
+vm.stack[2]= +1;
+vm.stack[3]= +1;
+vm.stack[4]= 0;
+vm.sp = 5;
+vm.code[4]= OP_RETURN;
+vm.code[3]= OP_MUL;
+vm.code[2]= OP_SUB;
+vm.code[1]= OP_SUB;
+vm.code[0]= OP_SUB;
+vm.code_size=5;

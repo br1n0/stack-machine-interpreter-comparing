@@ -1,58 +1,15 @@
-/*
-stack language, switch based
-implementazione minimale
+// 
+// stack language: switch based
+// gcc stack_switch.c -lm -o stack_switch && ./stack_switch
+// 
 
-CODESTYLE:
-poiche talvolta voglio commentare codice multilinea preferisco i commenti con //
-preferisco utilizzare nella stessa linea { invece che accapo, per non generare troppoe linee
+#include "Opcode_enum.c"
+typedef struct VM VM;
 
-gcc stack_switch.c -lm -o stack_switch && ./stack_switch
-*/
-
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-#include <assert.h>
-
-#define STACK_MAX 2*1024
-#define OPCODE_MAX 2*1024
-
-typedef enum{
-    OP_NOP,
-    OP_RETURN,    
-    OP_ADD,
-    OP_SUB,
-    OP_MUL,
-    OP_DIV,
-    OP_SIN,
-    OP_COS
-} Opcode;
-
-typedef struct{
-    double stack[ STACK_MAX ];
-    Opcode code[ OPCODE_MAX ];
-    int sp;
-    int pc;
-    int code_size;    
-} VM;
+#include "stack_common.h"
 
 
-static inline double stack_pop(VM *vm){
-//    assert(vm->sp > 0);
-//    assert(vm->sp < STACK_MAX);
-
-    double d= vm->stack[--vm->sp];
- //   printf("stack_pop[%d]:%f\n", vm->sp,d );
-
-    return d;
-}
-
-static inline void stack_push(VM *vm, double x){
-//    printf("stack_push[%d]:%f\n", vm->sp+1,x );
-//    assert(vm->sp < STACK_MAX);
-    vm->stack[vm->sp++] = x;    
-}
-
+// ===== EXEC =====
 double exec(VM *vm){
     double a=0,b=0;
 
@@ -109,32 +66,17 @@ double exec(VM *vm){
     }
 }
 
+
 int main(){
-/*
-    VM vm = {0}; //resetto vm, dato che nop corrisponde a 0
-    
-    vm.stack[0]= 7;
-    vm.stack[1]= 19;
-    vm.stack[2]= 5;
-    vm.stack[3]= 3;
-    vm.sp = 4;
-
-    vm.code_size=4;
-
-    vm.code[0]= OP_ADD;
-    vm.code[1]= OP_ADD;
-    vm.code[2]= OP_SUB;
-    vm.code[3]= OP_RETURN;
-*/
-
     VM vm = {0};
 
-long times=8000000;
-for(;times>0;times--){
-    //printf("times:%d\n",times);
-#include "program3.c"
-}
-    exec(&vm);
-    return 0;
+    long times=8000000;
+    for(;times>0;times--){
+        //printf("times:%d\n",times);
+        #include "program3.c"
+    }
 
+    exec(&vm);
+
+    return 0;
 }

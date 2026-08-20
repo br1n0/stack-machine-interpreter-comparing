@@ -1,59 +1,12 @@
-/*
-stack language, goto based
-implementazione minimale
-gcc stack_goto.c -lm -o stack_goto
-gcc stack_goto.c -lm -o stack_goto && ./stack_goto
+// 
+// stack language: goto based
+// gcc stack_goto.c -lm -o stack_goto
+// 
 
-CODESTYLE:
-poiche talvolta voglio commentare codice multilinea preferisco i commenti con //
-preferisco utilizzare nella stessa linea { invece che accapo, per non generare troppoe linee
+#include "Opcode_enum.c"
+typedef struct VM VM;
 
-*/
-
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-#include <assert.h>
-
-#define STACK_MAX 2*1024
-#define OPCODE_MAX 2*1024
-
-typedef enum{
-    OP_NOP,
-    OP_RETURN,    
-    OP_ADD,
-    OP_SUB,
-    OP_MUL,
-    OP_DIV,
-    OP_SIN,
-    OP_COS
-} Opcode;
-
-typedef struct{
-    double stack[ STACK_MAX ];
-    Opcode code[ OPCODE_MAX ];
-    int sp;
-    int pc;
-    int code_size;    
-} VM;
-
-
-static inline double stack_pop(VM *vm){
-    //assert(vm->sp > 0);
-    //assert(vm->sp < STACK_MAX);
-
-    double d= vm->stack[--vm->sp];
-    //printf("stack_pop[%d]:%f\n", vm->sp,d );
-
-    return d;
-}
-
-
-static inline void stack_push(VM *vm, double x){
-    //printf("stack_push[%d]:%f\n\n", vm->sp,x );
-    //assert(vm->sp < STACK_MAX);
-    vm->stack[vm->sp++] = x;    
-}
+#include "stack_common.h"
 
 
 void dump_exec_a_b( VM *vm,char *s, double a,double b){
@@ -63,6 +16,7 @@ void dump_exec_a_b( VM *vm,char *s, double a,double b){
 }
 
 
+// ===== EXEC =====
 double exec(VM *vm){
     double a=0,b=0,r=0;
     Opcode op;
@@ -143,7 +97,7 @@ case OP_COS:    goto L_COS;
 */
 
 
-    //static void *dispatch[] = {
+    //questa implementazione usa una dispatch table tramite un estensione di c di gcc
     static const void *dispatch[] = {    
         &&OP_NOP,
         &&OP_RETURN,
@@ -175,55 +129,19 @@ case OP_COS:    goto L_COS;
     END:
         //return vm->stack[0];
         return vm->stack[vm->sp - 1];
-
 }
+
 
 int main(){
-    /*
-    VM vm = {0}; //resetto vm, dato che nop corrisponde a 0
-    
-    vm.stack[0]= 0;
-    vm.stack[1]= 1;
-    vm.stack[2]= 1;
-    vm.stack[3]= 1;
-    vm.stack[4]= 2;
-    vm.sp = 4;
+    VM vm = {0};
 
-    vm.code_size=4;
-
-    vm.code[0]= OP_SUB;
-    vm.code[1]= OP_SUB;
-    vm.code[1]= OP_SUB;
-    vm.code[3]= OP_MUL;
-
-
-    exec( &vm );
-    */
-
-        VM vm = {0};
-
-/*
-    vm.stack[0]= +4;
-    vm.stack[1]= +1;
-    vm.stack[2]= +1;
-    vm.stack[3]= +1;
-    vm.stack[4]= 0;
-    vm.sp = 5;
-
-    vm.code[4]= OP_RETURN;
-    vm.code[3]= OP_MUL;
-    vm.code[2]= OP_SUB;
-    vm.code[1]= OP_SUB;
-    vm.code[0]= OP_SUB;
-    vm.pc = 0;
-    vm.code_size=5;
- */
-long times=4000000;
-for(;times>0;times--){
-    //printf("times:%d\n",times);
-#include "program3.c"
-}
+    long times=4000000;
+    for(;times>0;times--){
+        //printf("times:%d\n",times);
+        #include "program3.c"
+    }
 
     exec(&vm);
+
     return 0;
 }

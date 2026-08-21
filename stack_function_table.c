@@ -35,9 +35,9 @@ void F_OP_NOP(VM *vm){
 
 
 void F_OP_RETURN(VM *vm){
-    printf("pc=%d: OP_RETURN R:%f\n",
-           vm->pc-1,
-           vm->stack[vm->sp-1]);
+    //printf("pc=%d: OP_RETURN R:%f\n",
+    //       vm->pc-1,
+    //       vm->stack[vm->sp-1]);
 
     vm->pc = vm->code_size; // termina VM
 }
@@ -99,12 +99,12 @@ int main(){
 
     VM vm = {0};
 
-    long times=4000000;
+    long times=400000;
     for(;times>0;times--){
         //printf("times:%d\n",times);
-    #include "program3.c"
+        #include "program3.c"
+        exec(&vm);
     }    
-    exec(&vm);
 
     return 0;
 }

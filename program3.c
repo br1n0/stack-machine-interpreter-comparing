@@ -1,4 +1,5 @@
 vm.pc = 0;
+vm.sp = 0;
 vm.stack[0]= +2;
 vm.stack[1]= +1;
 vm.stack[2]= +1;

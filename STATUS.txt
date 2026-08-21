@@ -12,65 +12,8 @@ native implementa lo stesso programma in c
 -scrivere un programma test piu complesso
 -benchmark 
 
-1000 elementi powersave O0 - stack_switch é il dippio piu lenta - function table prima, goto sempre seconda
-2.62 stack_subroutine
-2.68 stack_goto
-2.72 stack_function_table
-5.37 stack_switch
 
-2000 elementi powersave O0
-06.33 stack_function_table
-06.56 stack_goto
-06.72 stack_subroutine
-13.10 stack_switch
-
-2000 elementi powersave O0
-06.43 stack_function_table
-06.45 stack_goto
-06.65 stack_subroutine
-13.00 stack_switch
-
-2000 elementi performance O0 -  stesso ordine, risultati simili a powersave
-06.33 stack_function_table
-06.50 stack_goto
-06.57 stack_subroutine
-12.87 stack_switch
-
-2000 elementi performance O1 -  con powersave - non misurabili!!
-0.00 stack_function_table
-0.00 stack_switch
-0.00 stack_goto
-0.00 stack_subroutine
-
--------
-stack_function_table
-.
-pc=2001: OP_RETURN R:-4000.000000
-6.49user 0.00system 0:06.49elapsed 99%CPU (0avgtext+0avgdata 1920maxresident)k
-0inputs+0outputs (0major+90minor)pagefaults 0swaps
-
-
-stack_switch
-.
-pc=2001: OP_RETURN R:-4000.000000
-13.00user 0.00system 0:13.00elapsed 99%CPU (0avgtext+0avgdata 1920maxresident)k
-0inputs+0outputs (0major+89minor)pagefaults 0swaps
-
-
-stack_goto
-.
-pc=-1: OP_NOP
-a:0.000000
-b:0.000000
-
-RV:-4000.000000
-6.47user 0.00system 0:06.47elapsed 100%CPU (0avgtext+0avgdata 1920maxresident)k
-0inputs+0outputs (0major+88minor)pagefaults 0swaps
-
-
-stack_subroutine
-.
-
-pc=2001: OP_RETURN R:-4000.000000
-6.65user 0.00system 0:06.66elapsed 99%CPU (0avgtext+0avgdata 2048maxresident)k
-0inputs+0outputs (0major+90minor)pagefaults 0swaps
+12.82 stack_function_table
+11.92 stack_switch
+12.45 stack_goto
+13.10 stack_subroutine

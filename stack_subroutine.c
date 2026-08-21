@@ -27,14 +27,14 @@ void exec(VM *vm){
 
 // ======= opcode ======= 
 void OP_NOP(VM *vm){
-    printf("\npc=%d: OP_NOP\n", vm->pc-1);
+    printf("\npc=%d: OP_NOP-S\n", vm->pc-1);
 }
 
 
 void OP_RETURN(VM *vm){
-    printf("\npc=%d: OP_RETURN R:%f\n",
-           vm->pc-1,
-           vm->stack[vm->sp-1]);
+    //printf("\npc=%d: OP_RETURN R:%f\n",
+    //       vm->pc-1,
+    //       vm->stack[vm->sp-1]);
 
     vm->pc = vm->code_size; // termina VM
 }
@@ -105,13 +105,12 @@ void OP_COS(VM *vm){
 int main(){
     VM vm = {0};
 
-    long times=4000000;
+    long times=400000;
     for(;times>0;times--){
         //printf("times:%d\n",times);
-    #include "program3.c"
+        #include "program3.c"
+        exec(&vm);
     }
  
-    exec(&vm);
-
     return 0;
 }

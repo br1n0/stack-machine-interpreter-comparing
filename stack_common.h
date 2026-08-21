@@ -1,7 +1,7 @@
 /*
 stack commmon things
 */
-
+#include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
@@ -13,11 +13,11 @@ stack commmon things
 
 
 struct VM {
+    uint16_t sp;
+    uint16_t pc;
+    uint16_t code_size;    
     double stack[ STACK_MAX ];
     Opcode code[ OPCODE_MAX ];
-    int sp;
-    int pc;
-    int code_size;    
 };
 
 

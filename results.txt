@@ -1,0 +1,51 @@
+naive benchmak to against different machines:
+remember to set the cpu performance governor, and remove other cpu usage
+echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+--- compile Optimization: -O1 ---
+3.07 i_TTC_dispatch_computed_goto
+3.05 i_TTC_dispatch_switch
+3.06 i_TTC_dispatch_if
+4.73 i_TTC_dispatch_function_table
+3.00 i_DCT_dispatch_function_call
+4.48 native_function_call
+0.00 native_function_init
+--- compile Optimization: -O2 ---
+2.88 i_TTC_dispatch_computed_goto
+2.85 i_TTC_dispatch_switch
+2.83 i_TTC_dispatch_if
+2.87 i_TTC_dispatch_function_table
+3.04 i_DCT_dispatch_function_call
+2.70 native_function_call
+0.00 native_function_init
+--- compile Optimization: -O2 -fshort-enums ---
+2.67 i_TTC_dispatch_computed_goto
+2.75 i_TTC_dispatch_switch
+2.64 i_TTC_dispatch_if
+2.75 i_TTC_dispatch_function_table
+2.96 i_DCT_dispatch_function_call
+2.65 native_function_call
+0.00 native_function_init
+--- compile Optimization: -O3 -march=native ---
+2.62 i_TTC_dispatch_computed_goto
+2.60 i_TTC_dispatch_switch
+2.53 i_TTC_dispatch_if
+2.59 i_TTC_dispatch_function_table
+2.63 i_DCT_dispatch_function_call
+2.10 native_function_call
+0.00 native_function_init
+--- compile Optimization: -O3 -march=native -fshort-enums ---
+2.58 i_TTC_dispatch_computed_goto
+2.57 i_TTC_dispatch_switch
+2.57 i_TTC_dispatch_if
+2.57 i_TTC_dispatch_function_table
+2.69 i_DCT_dispatch_function_call
+2.08 native_function_call
+0.00 native_function_init
+--- compile Optimization: -Ofast -march=native -fshort-enums ---
+2.56 i_TTC_dispatch_computed_goto
+2.58 i_TTC_dispatch_switch
+2.57 i_TTC_dispatch_if
+2.49 i_TTC_dispatch_function_table
+2.65 i_DCT_dispatch_function_call
+2.05 native_function_call
+0.00 native_function_init

@@ -1,5 +1,5 @@
 typedef enum{
-    OP_NOP,
+    OP_NOP=0,
     OP_RETURN,    
     OP_ADD,
     OP_SUB,
@@ -7,6 +7,7 @@ typedef enum{
     OP_DIV,
     OP_SIN,
     OP_COS,
-
+    
     OPCODE_COUNT
 } Opcode;
+

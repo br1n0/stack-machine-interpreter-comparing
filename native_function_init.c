@@ -6,26 +6,12 @@
 #include "Opcode_enum.c"
 typedef struct VM VM;
 
-#include "stack_common.h"
+#include "common.h"
 
 // variabili globali supporto, forse converrebbe metterle nelle  funzioni, in questo modo il codice diverrebbe thread safe
 double a=0,b=0;
 
 
-
-void (*table[OPCODE_COUNT])(VM *vm);
-
-
-// ===== EXEC =====
-double exec(VM *vm){
-
-    while (vm->pc < vm->code_size) {
-        Opcode op = vm->code[vm->pc++];
-        ( table[op] )( vm );
-    }
-    //return vm->stack[0];
-    return vm->stack[vm->sp-1];
-}
 
 
 // ======= opcode ======= 
@@ -35,9 +21,7 @@ void F_OP_NOP(VM *vm){
 
 
 void F_OP_RETURN(VM *vm){
-    //printf("pc=%d: OP_RETURN R:%f\n",
-    //       vm->pc-1,
-    //       vm->stack[vm->sp-1]);
+    //printf("pc=%d: OP_RETURN R:%f\n", vm->pc-1, vm->stack[vm->sp-1]); //commentato voglio solo misurare il tempo di calcolo non lentezza stdout
 
     vm->pc = vm->code_size; // termina VM
 }
@@ -75,35 +59,30 @@ void F_OP_DIV(VM *vm){
 
 void F_OP_SIN(VM *vm){
     a = stack_pop(vm);
-    stack_push(vm, sin(a));
+//    stack_push(vm, sin(a));
+    stack_push(vm, -(a));
 }
 
 
 void F_OP_COS(VM *vm){
     a = stack_pop(vm);
-    stack_push(vm, cos(a));
+//    stack_push(vm, cos(a));
+    stack_push(vm, -(a));
 }
 
+
+void run(){
+    VM vm = {0};
+    VM *v=&vm;    
+
+    #include "test3_function_init.c"
+}
 
 
 int main(){
 
-    table[OP_NOP]= F_OP_NOP;
-    table[OP_RETURN]= F_OP_RETURN;
-    table[OP_ADD]= F_OP_ADD;
-    table[OP_SUB]= F_OP_SUB;
-    table[OP_MUL]= F_OP_MUL;
-    table[OP_DIV]= F_OP_DIV;
-    table[OP_SIN]= F_OP_SIN;
-    table[OP_COS]= F_OP_COS;
-
-    VM vm = {0};
-
-    long times=400000;
-    for(;times>0;times--){
-        //printf("times:%d\n",times);
-        #include "program3.c"
-        exec(&vm);
+    for(long times=400000;times>0;times--){
+        run();
     }    
 
     return 0;

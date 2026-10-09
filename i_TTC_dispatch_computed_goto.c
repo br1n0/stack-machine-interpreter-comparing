@@ -6,7 +6,7 @@
 #include "Opcode_enum.c"
 typedef struct VM VM;
 
-#include "stack_common.h"
+#include "common.h"
 
 
 void dump_exec_a_b( VM *vm,char *s, double a,double b){
@@ -119,7 +119,7 @@ int main(){
     //times=1;
     for(;times>0;times--){
         //printf("times:%d\n",times);
-        #include "program3.c"
+        #include "test3.c"
         exec(&vm);
     }
 

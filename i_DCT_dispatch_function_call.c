@@ -13,7 +13,7 @@ typedef void (*Opcode)(VM *vm);
 
 
 typedef struct VM VM;
-#include "stack_common.h"
+#include "common.h"
 
 
 // ===== EXEC =====
@@ -108,7 +108,7 @@ int main(){
     long times=400000;
     for(;times>0;times--){
         //printf("times:%d\n",times);
-        #include "program3.c"
+        #include "test3.c"
         exec(&vm);
     }
  

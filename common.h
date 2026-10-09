@@ -22,7 +22,9 @@ struct VM {
 
 
 
-static inline double stack_pop(VM *vm){
+//static inline 
+static inline __attribute__((always_inline))
+double stack_pop(VM *vm){
 //    assert(vm->sp > 0);
 //    assert(vm->sp < STACK_MAX);
 
@@ -33,7 +35,9 @@ static inline double stack_pop(VM *vm){
 }
 
 
-static inline void stack_push(VM *vm, double x){
+//static inline 
+static inline __attribute__((always_inline))
+void stack_push(VM *vm, double x){
 //    printf("stack_push[%d]:%f\n", vm->sp+1,x );
 //    assert(vm->sp < STACK_MAX);
     vm->stack[vm->sp++] = x;    

@@ -1,6 +1,8 @@
 // 
-// stack language: switch based
-// gcc stack_switch.c -lm -o stack_switch && ./stack_switch
+// i_TTC_dispatch_if.c
+// Token Threaded Code - dispatch imeplemented with if: 
+// compile && run:
+// gcc i_TTC_dispatch_if.c -lm -o i_TTC_dispatch_if && ./i_TTC_dispatch_if
 // 
 
 #include "Opcode_enum.c"

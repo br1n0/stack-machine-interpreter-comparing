@@ -1,6 +1,8 @@
 // 
-// stack language: goto based
-// gcc stack_goto.c -lm -o stack_goto
+// i_TTC_dispatch_goto.c
+// Token Threaded Code - dispatch imeplemented with goto: 
+// compile && run:
+// gcc i_TTC_dispatch_goto.c -lm -o i_TTC_dispatch_goto && ./i_TTC_dispatch_goto
 // 
 
 #include "Opcode_enum.c"

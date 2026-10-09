@@ -1,7 +1,9 @@
 // 
-// stack language: function table based
-// gcc stack_function_table.c -lm -o stack_function_table
-//
+// i_TTC_dispatch_function_table.c
+// Token Threaded Code - dispatch imeplemented with function table: 
+// compile && run:
+// gcc i_TTC_dispatch_function_table.c -lm -o i_TTC_dispatch_function_table && ./i_TTC_dispatch_function_table
+// 
 
 #include "Opcode_enum.c"
 typedef struct VM VM;

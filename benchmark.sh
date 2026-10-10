@@ -10,6 +10,7 @@ compile() {
 	gcc i_DCT_dispatch_function_call.c   -lm $Optimization -o i_DCT_dispatch_function_call
 	gcc native_function_call.c           -lm $Optimization -o native_function_call
 	gcc native_function_init.c           -lm $Optimization -o native_function_init
+	gcc native_baseline.c                -lm $Optimization -o native_baseline
 }
 
 run(){
@@ -23,16 +24,22 @@ benchmark(){
 	run i_TTC_dispatch_if
 	run i_TTC_dispatch_function_table
 	run i_DCT_dispatch_function_call
-	run native_function_call
 	run native_function_init
+	run native_function_call
+	run native_baseline
 }
 
 
-#clear
+clear
 echo "naive benchmak to against different machines:"
 echo "remember to set the cpu performance governor, and remove other cpu usage"
 echo 'echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
 #read -p "Press key to continue.. " -n1 -s
+
+
+Optimization='-O0'
+compile
+benchmark
 
 Optimization='-O1'
 compile
@@ -46,7 +53,7 @@ Optimization='-O2 -fshort-enums'
 compile
 benchmark
 
-Optimization='-O3 -march=native'
+Optimization='-O2 -march=native'
 compile
 benchmark
 
@@ -57,3 +64,4 @@ benchmark
 Optimization='-Ofast -march=native -fshort-enums'
 compile
 benchmark
+

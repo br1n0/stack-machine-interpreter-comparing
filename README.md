@@ -2,7 +2,9 @@
 mi domandavo quale fosse l'implementazione piu performante per un interprete tipo una stack machine.
 Percui questo benchmark misurare le differenze, e compilando con gcc ad ottimizzazioni differenti.
 native_function_init serve a misurare l'inizzializzazione dei dati,
-mentre native_function_call serve a misurare l'esecuzione del codice nativo tramite funzioni 
+mentre native_function_call serve a misurare l'esecuzione del codice nativo tramite funzioni.
+native_baseline serve a stimare il tempo di calcolo, per stimare quanto il compilatore riesce a ottimizzare un elaborazione se espressa in maniera idiomatica in c.
+al massimo dell'e ottimizzazioni il compilatore gcc riesce a semplificare l'elaborazione di native_baseline, impiega 0 secondi, ma non ci riesce se espresso tramite un elaborazione di funzioni sullo stack! infatti native_function_call utilizza le stesse funzioni di i_TTC_dispatch_function_table o i_DCT_dispatch_function_call ma senza l'interprete ed impiega 2.03s. 
 
 ## Modelli di interpretazione
 Ho cercato di assegnare alle implementazioni nomi descrittivi, che permettano di identificare:
@@ -30,13 +32,15 @@ I migliori tempi misurati sul mio portatilaccio sono i seguenti:
 
 | Implementazione | Tempo (s) |
 |---|---:|
-| `i_TTC_dispatch_computed_goto` | 2.56 |
-| `i_TTC_dispatch_switch` | 2.58 |
-| `i_TTC_dispatch_if` | 2.57 |
-| **`i_TTC_dispatch_function_table`** | **2.49** |
-| `i_DCT_dispatch_function_call` | 2.65 |
-| `native_function_call` | 2.05 |
+| `i_TTC_dispatch_computed_goto` | 2.52 |
+| `i_TTC_dispatch_switch` | 2.53 |
+| `i_TTC_dispatch_if` | 2.52 |
+| **`i_TTC_dispatch_function_table`** | **2.53** |
+| `i_DCT_dispatch_function_call` | 2.66 |
 | `native_function_init` | 0.00 |
+| `native_function_call` | 2.03 |
+| `native_baseline` | 0.00 |
+
 
 I tempi con differenti impostazioni di compilazione sono in results.txt
 

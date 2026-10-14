@@ -50,8 +50,8 @@ l'implementazione di interpreti tramite TTC risulta semplice specie la versione 
 il TTC non utilizzando direttamente un simbolo per identificare i comandi, consente di ridefinirli senza modificare il bytecode, percui é facile implementare funzionalitá avanzate come l'hotswap di una funzione, ovvero modificare l'implementazione di un programma a runtime o caricare l'implementazione dei comandi/funzioni da una libreria dinamica!
 Le implementazioni i_TTC_dispatch_function_table e i_DCT_dispatch_function_call eseguono le funzioni, le potrebbero condividere in un file esterno.
 l'implementazione con i_DCT_dispatch_function_call non necessita di un elenco funzioni, ma risulta la piu lenta, mentre quando ottimizzata dal compilatore la i_TTC_dispatch_function_table é la piú veloce.
-Percui i_TTC_dispatch_function_table mi sembra il modo migliore per scrivere un interprete basato su stack.
-
+Percui i_TTC_dispatch_function_table mi sembra l'approccio migliore per scrivere un interprete basato su stack.
+Ho aggiunto i_TTC_dispatch_function_table_shared che utulizza l'approccio di i_TTC_dispatch_function_table ma carica le funzioni da una libreria dinamica esterna, implementando l'hotreload. Le performance sono simili, la struttura é generica, permette facile implementazione di un DSL, il file di libreria dinamica espone le funzioni utilizzabili. L'indice delle funzioni deve coincidere con l'enum definito in Opcode_enum.c
 
 
 Struttura Dati

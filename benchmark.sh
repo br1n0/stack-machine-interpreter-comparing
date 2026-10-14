@@ -8,6 +8,11 @@ compile() {
 	gcc i_TTC_dispatch_if.c              -lm $Optimization -o i_TTC_dispatch_if 
 	gcc i_TTC_dispatch_function_table.c  -lm $Optimization -o i_TTC_dispatch_function_table 
 	gcc i_DCT_dispatch_function_call.c   -lm $Optimization -o i_DCT_dispatch_function_call
+	gcc i_DCT_dispatch_function_call.c   -lm $Optimization -o i_DCT_dispatch_function_call
+
+	gcc -std=c99 $Optimization -fPIC -fvisibility=hidden  -shared vm_shared.c -o vm_shared.so -lm
+	gcc i_TTC_dispatch_function_table_shared.c -lm $Optimization -o i_TTC_dispatch_function_table_shared
+
 	gcc native_function_call.c           -lm $Optimization -o native_function_call
 	gcc native_function_init.c           -lm $Optimization -o native_function_init
 	gcc native_baseline.c                -lm $Optimization -o native_baseline
@@ -24,6 +29,7 @@ benchmark(){
 	run i_TTC_dispatch_if
 	run i_TTC_dispatch_function_table
 	run i_DCT_dispatch_function_call
+	run i_TTC_dispatch_function_table_shared
 	run native_function_init
 	run native_function_call
 	run native_baseline

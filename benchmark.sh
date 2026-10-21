@@ -8,7 +8,6 @@ compile() {
 	gcc i_TTC_dispatch_if.c              -lm $Optimization -o i_TTC_dispatch_if 
 	gcc i_TTC_dispatch_function_table.c  -lm $Optimization -o i_TTC_dispatch_function_table 
 	gcc i_DCT_dispatch_function_call.c   -lm $Optimization -o i_DCT_dispatch_function_call
-	gcc i_DCT_dispatch_function_call.c   -lm $Optimization -o i_DCT_dispatch_function_call
 
 	gcc -std=c99 $Optimization -fPIC -fvisibility=hidden  -shared vm_shared.c -o vm_shared.so -lm
 	gcc i_TTC_dispatch_function_table_shared.c -lm $Optimization -o i_TTC_dispatch_function_table_shared

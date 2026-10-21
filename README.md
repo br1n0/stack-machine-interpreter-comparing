@@ -26,6 +26,29 @@ DCT sta per Direct Call Threading, nella viene chiamato anche Direct Threading,
 in questo modo i comandi nel bytecode sono espressi come puntatori alle funzioni. il Vantaggio é che l'interprete non ha necessitá della di una tavola conversioni funzioni, si limita ad eseguire quello che gli é indicato.
 
 
+### Native
+Native indica codice nativo della macchina, ho incluso nel test l'inizializzazione nativa della macchina a stack.
+
+Ho aggiunto un transpiler, ovvero un compilatore da stack language a C,
+compila in una sola passata in C, poi il codice c va compilato.
+
+##Design transpiler: 
+inizialmente individua le funzioni primitive disponibili allo stack language, una word per intenderci.
+Poi lo traduce in una sola passata, per realizzare questo usa mmap per caricarlo in memoria e dividerlo in token,
+per ciascun token:
+ se numero, produce una push per aggiungerlo allo stack
+ se una primitiva produce il codice per eseguirla.
+
+Dopo viene creato il file, per includere solo le funzioni utilizzate nel programma, 
+per allegerire il compilatore c.
+
+
+## Schema  compilazione
+1.  per compilare il transpiler (non ripetuto).
+2.  compilare il programma della macchina a stack, creando un programma.c transpilato
+3.  compilare il programma transpilato 
+
+
 ## Risultati del benchmark
 
 I migliori tempi misurati sul mio portatilaccio sono i seguenti:
@@ -52,7 +75,18 @@ Le implementazioni i_TTC_dispatch_function_table e i_DCT_dispatch_function_call 
 l'implementazione con i_DCT_dispatch_function_call non necessita di un elenco funzioni, ma risulta la piu lenta, mentre quando ottimizzata dal compilatore la i_TTC_dispatch_function_table é la piú veloce.
 Percui i_TTC_dispatch_function_table mi sembra l'approccio migliore per scrivere un interprete basato su stack.
 Ho aggiunto i_TTC_dispatch_function_table_shared che utulizza l'approccio di i_TTC_dispatch_function_table ma carica le funzioni da una libreria dinamica esterna, implementando l'hotreload. Le performance sono simili, la struttura é generica, permette facile implementazione di un DSL, il file di libreria dinamica espone le funzioni utilizzabili. L'indice delle funzioni deve coincidere con l'enum definito in Opcode_enum.c
+Ho aggiunto anche un transpilatore a C, in questo modo, senza scrivere codice apposito utilizzo indirettamente le ottimizzazioni di gcc!
+lo stack language transpilato mi aspettavo fosse veloce come l'implementazione basata su vm, ho implementanto in modo leggermente diverso, e casualmente piú veloce.
+  risulta pressoché piú veloce dell'implementazione nativa basata su vm, ma non su implementazione nativa e idiomatica.
+La calling convention diversa sembra impedire a gcc di semplificare il codice.
 
+Il mio transpilatore potrebbe essere esteso ad un implementazione di forth, 
+scrivendo un editor per visualizzare il codice e lo stato delle variabili, 
+e modificando il transpiler per fare in modo che la compilazione produca una libreria dinamica, che viene ricaricata. 
+In questo modo si potrebbe ottenere  l'esecuzione interattiva di codice nativo, senza interpretazione.
+Uno strumento per semplificare automaticamente le espressioni costanti nel linguaggio a stack basando sulle propieta delle operazioni, 
+ potrebbe ottenere codice che ha performance migliori anche senza ottimizzazzioni di gcc.
+Poichés consentirebbe di fare semplificazioni di alto livello che non é scontato siano effettute da gcc.
 
 Struttura Dati
 VM é la struttura dati principale dell'interprete. 

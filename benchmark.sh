@@ -41,6 +41,8 @@ echo "remember to set the cpu performance governor, and remove other cpu usage"
 echo 'echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
 #read -p "Press key to continue.. " -n1 -s
 
+#compile the transpiler, and the reference test program
+./transpiler_recompile.sh
 
 Optimization='-O0'
 compile
@@ -53,6 +55,7 @@ benchmark
 Optimization='-O2'
 compile
 benchmark
+run ./native_transpiled_run400k_O2
 
 Optimization='-O2 -fshort-enums'
 compile
@@ -69,4 +72,4 @@ benchmark
 Optimization='-Ofast -march=native -fshort-enums'
 compile
 benchmark
-
+run ./native_transpiled_run400k_Ofast

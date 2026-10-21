@@ -69,8 +69,8 @@ int hot_reload(VM *vm){
         return 1;
     }
 
-    printf("Version: %d\n", api->version);
-    printf("Size: %d\n", api->size);
+    //printf("Version: %d\n", api->version);
+    //printf("Size: %d\n", api->size);
 
     for(int i=0;i<api->size;i++)
         vm->table[ (Opcode)i ] = api->table[i] ;
